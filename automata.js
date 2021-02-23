@@ -1,5 +1,5 @@
 class Automata{
-    constructor(game, rule) {
+    constructor(game, rule, random) {
         Object.assign(this, { game });
 
         this.rule = [];
@@ -13,7 +13,7 @@ class Automata{
         this.loadRule(rule);
 
         for (let i = 0; i < this.width; i++) {
-            this.automata.push(0);
+            this.automata.push(random ? randomInt(2) : 0);
         }
         this.automata[Math.floor(this.width / 2)] = 1;
     };
