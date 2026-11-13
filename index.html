@@ -1,21 +1,63 @@
-﻿
-<!DOCTYPE html>
-<html>
+﻿<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Stephen Wolfram's Cellular Automata</title>
-
-    <script type="text/javascript" src="./assetmanager.js"></script>
-    <script type="text/javascript" src="./timer.js"></script>
-    <script type="text/javascript" src="./gameengine.js"></script>
-    <script type="text/javascript" src="./util.js"></script>
-    <script type="text/javascript" src="./automata.js"></script>
-    <script type="text/javascript" src="./main.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wolfram's Elementary Cellular Automata</title>
+<!-- Claude Basic 0.6.0, vendored and pinned -->
+<link rel="stylesheet" href="vendor/claude-basic.css">
+<script src="vendor/claude-basic.js"></script>
+<style>
+  .top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 14px var(--cb-gap) 0; }
+  .top .spacer { flex: 1; }
+  .top h1 { margin: 0; font-size: 20px; }
+  .about { max-width: 980px; padding: 4px var(--cb-gap) 0; color: var(--cb-muted); font-size: 13px; line-height: 1.5; }
+  #gameWorld { width: 100%; height: auto; background: #fff; }
+  .cb-sim-ctl.rule { min-width: 320px; }
+</style>
 </head>
 <body>
-    <canvas id="gameWorld" width="1604" height="804" style="background: white; border: 1px solid black"></canvas>
-    Rule <input type="text" id="rule" value="30" />
-    <button type="button" id="reset">Reset</button>
-    <button type="button" id="random">Random</button>
+<div class="top">
+  <h1 class="cb-title">Wolfram's Elementary Cellular Automata<span class="cb-dot">.</span></h1>
+  <span class="spacer"></span>
+  <span id="picker"></span>
+</div>
+<p class="about">
+  A row of cells, each on or off. Every cell's next state depends only on itself and its two neighbours:
+  eight possible neighbourhoods, so a rule is eight on/off answers, one number from 0 to 255.
+  Each new generation is drawn as the next row down. Rule 30 looks random, rule 90 draws the
+  Sierpi&#324;ski triangle, and rule 110 is Turing complete.
+</p>
+
+<div class="cb-sim">
+  <div class="cb-sim-stage">
+    <div class="cb-sim-world"><canvas id="gameWorld" width="1604" height="804"></canvas></div>
+    <div class="cb-sim-controls">
+      <label class="cb-sim-ctl rule"><span class="k"><span>Rule</span><output id="ruleOut">30</output></span>
+        <input type="range" class="cb-range" id="rule" min="0" max="255" value="30" step="1"></label>
+      <label class="cb-sim-ctl"><span class="k"><span>Jump to a rule</span></span>
+        <select class="cb-select" id="preset">
+          <option value="">choose…</option>
+          <option value="30">30: chaos</option>
+          <option value="90">90: Sierpi&#324;ski triangle</option>
+          <option value="110">110: Turing complete</option>
+          <option value="184">184: traffic flow</option>
+          <option value="150">150: XOR of three</option>
+          <option value="54">54: interacting gliders</option>
+        </select></label>
+      <div class="btns">
+        <button type="button" class="cb-btn primary" id="reset">Start from one cell</button>
+        <button type="button" class="cb-btn" id="random">Start from a random row</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./assetmanager.js"></script>
+<script src="./timer.js"></script>
+<script src="./gameengine.js"></script>
+<script src="./util.js"></script>
+<script src="./automata.js"></script>
+<script src="./main.js"></script>
 </body>
 </html>
